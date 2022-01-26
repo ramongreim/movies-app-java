@@ -21,7 +21,7 @@ public class Service {
 
     private static Retrofit.Builder retrofitBuilder =
             new Retrofit.Builder()
-            .baseUrl(Credentials.BASE_URL2)
+            .baseUrl(Credentials.BASE_URL)
             .client(service.getClient())
             .addConverterFactory(GsonConverterFactory.create());
 

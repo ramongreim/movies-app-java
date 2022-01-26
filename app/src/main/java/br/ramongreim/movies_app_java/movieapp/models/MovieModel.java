@@ -5,28 +5,40 @@ import android.os.Parcelable;
 
 public class MovieModel implements Parcelable {
 
+    private int id;
+    //private String type;
+    private String disambiguation;
+    private int runningTimeInMinutes;
     private String title;
-
+    private String titleType;
+    private int year;
+    private String sliderName;
     private String poster_path;
+    public class Image{
+        private String url;
+    }
 
-    private String release_date;
 
-    private int movie_id;
-
-    private float vote_average;
-
-    private String movie_overview;
-
-    //Constructor
-
+    public MovieModel(int id, String disambiguation, int runningTimeInMinutes, String title,String titleType, int year, String poster_path) {
+        this.id = id;
+        //this.type = type;
+        this.disambiguation = disambiguation;
+        this.runningTimeInMinutes = runningTimeInMinutes;
+        this.title = title;
+        this.titleType = titleType;
+        this.year = year;
+        this.poster_path = poster_path;
+    }
 
     protected MovieModel(Parcel in) {
+        id = in.readInt();
+        disambiguation = in.readString();
+        runningTimeInMinutes= in.readInt();
         title = in.readString();
+        titleType = in.readString();
+        title = in.readString();
+        year = in.readInt();
         poster_path = in.readString();
-        release_date = in.readString();
-        movie_id = in.readInt();
-        vote_average = in.readFloat();
-        movie_overview = in.readString();
     }
 
     public static final Creator<MovieModel> CREATOR = new Creator<MovieModel>() {
@@ -41,6 +53,18 @@ public class MovieModel implements Parcelable {
         }
     };
 
+    public int getId() {
+        return id;
+    }
+
+    public String getDisambiguation() {
+        return disambiguation ;
+    }
+
+    public int getRunningTimeInMinutes() {
+        return runningTimeInMinutes;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -49,32 +73,20 @@ public class MovieModel implements Parcelable {
         return poster_path;
     }
 
-    public String getRelease_date() {
-        return release_date;
+    public String getTitleType() {
+        return titleType;
     }
 
-    public int getMovie_id() {
-        return movie_id;
+    public int getYear() {
+        return year;
     }
 
-    public float getVote_average() {
-        return vote_average;
+    public String getSliderName() {
+        return sliderName;
     }
 
-    public String getMovie_overview() {
-        return movie_overview;
-    }
-
-    public MovieModel(String title, String poster_path, String release_date, int movie_id, float vote_average, String movie_overview) {
-
-
-
-        this.title = title;
-        this.poster_path = poster_path;
-        this.release_date = release_date;
-        this.movie_id = movie_id;
-        this.vote_average = vote_average;
-        this.movie_overview = movie_overview;
+    public void setSliderName(String sliderName) {
+        this.sliderName = sliderName;
     }
 
     @Override
@@ -84,11 +96,14 @@ public class MovieModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
+        parcel.writeInt(id);
+        parcel.writeString(disambiguation);
+        parcel.writeInt(runningTimeInMinutes);
         parcel.writeString(title);
+        parcel.writeString(titleType);
+        parcel.writeInt(year);
         parcel.writeString(poster_path);
-        parcel.writeString(release_date);
-        parcel.writeInt(movie_id);
-        parcel.writeFloat(vote_average);
-        parcel.writeString(movie_overview);
+
     }
 }

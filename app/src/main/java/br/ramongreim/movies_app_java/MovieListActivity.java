@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,6 +24,7 @@ import br.ramongreim.movies_app_java.movieapp.request.Service;
 import br.ramongreim.movies_app_java.movieapp.response.MovieSearchResponse;
 import br.ramongreim.movies_app_java.movieapp.utils.Credentials;
 import br.ramongreim.movies_app_java.movieapp.utils.MovieApi;
+import br.ramongreim.movies_app_java.movieapp.viewmodels.MovieListViewModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,6 +47,8 @@ public class MovieListActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
     Button btn;
+    private MovieListViewModel movieListViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +56,7 @@ public class MovieListActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         btn = findViewById(R.id.button);
 
-
+        movieListViewModel = new ViewModelProvider(this).get(MovieListViewModel.class);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +81,15 @@ public class MovieListActivity extends AppCompatActivity {
 //                GetRetrofitResponse();
 //            }
 //        });
+    }
+
+    private void ObserveAnyChange(){
+        movieListViewModel.getMovies().observe(this, new Observer<List<MovieModel>>() {
+            @Override
+            public void onChanged(List<MovieModel> movieModels) {
+
+            }
+        });
     }
 
 //    private void GetRetrofitResponse() {
